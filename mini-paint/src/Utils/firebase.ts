@@ -4,12 +4,12 @@ import "firebase/auth";
 import ReduxSagaFirebase from "redux-saga-firebase";
 
 const app = firebase.initializeApp({
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+	apiKey: "AIzaSyA52V9e7wL_7X67VcClHfZA3MRklJhs2eA",
+	authDomain: "minipaint-adee7.firebaseapp.com",
+	projectId: "minipaint-adee7",
+	storageBucket: "minipaint-adee7.appspot.com",
+	messagingSenderId: 217354248374,
+	appId: "1:217354248374:web:0bb9a208bdaef6db990617",
 });
 
 export const auth = firebase.auth();

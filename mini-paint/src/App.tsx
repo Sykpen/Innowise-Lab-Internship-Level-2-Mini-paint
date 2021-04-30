@@ -1,7 +1,12 @@
 import React from "react";
+import MainAppComponent from "./Components/MainAppComponent";
 
 function App() {
-  return <div>Я главная компонента</div>;
+	return (
+		<div>
+			<MainAppComponent />
+		</div>
+	);
 }
 
 export default App;
