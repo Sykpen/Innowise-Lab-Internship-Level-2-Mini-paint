@@ -4,26 +4,27 @@ import { REGISTER_NEW_USER } from "../constants";
 import { ActionsTypes } from "../Types/actionTypes";
 
 const initialState = {
-  userId: "",
-  currentUserEmail: "",
+	userId: "",
+	currentUserEmail: "",
+	isUserAlreadyLoggedIn: false,
 };
 
 export const AuthorizationReducer = (
-  state = initialState,
-  action: ActionsTypes
+	state = initialState,
+	action: ActionsTypes
 ) => {
-  switch (action.type) {
-    case REGISTER_NEW_USER:
-      return {
-        ...state,
-        currentUserEmail: action.email,
-      };
-      case LOGIN_USER:
-        return {
-          ...state,
-          currentUserEmail: action.email,
-        };
-    default:
-      return state;
-  }
+	switch (action.type) {
+		case REGISTER_NEW_USER:
+			return {
+				...state,
+				currentUserEmail: action.email,
+			};
+		case LOGIN_USER:
+			return {
+				...state,
+				currentUserEmail: action.email,
+			};
+		default:
+			return state;
+	}
 };
