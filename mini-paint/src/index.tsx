@@ -19,6 +19,8 @@ import { isUserAlreadyLoggedIn } from "./actions/authorization";
 
 const sagaMiddleware = createSagaMiddleware();
 
+export type RootState = ReturnType<typeof rootReducer>
+
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
 sagaMiddleware.run(rootSaga);
