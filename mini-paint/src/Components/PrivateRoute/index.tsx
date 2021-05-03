@@ -3,27 +3,14 @@ import { Route, Redirect } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { PrivateRouteInterface } from "../../Types/privateRouter";
 import { auth } from "../../Utils/firebase";
-import { useSelector } from "react-redux";
 
-interface RootState {
-	authorization: Iauthorization;
-}
-
-interface Iauthorization {
-	userId: string;
-	currentUserEmail: string;
-	isUserAlreadyLoggedIn: boolean;
-}
 export const PrivateRoute = (props: PrivateRouteInterface) => {
-	const isUserLoggedIn = useSelector(
-		(state: RootState) => state.authorization.isUserAlreadyLoggedIn
-	);
+  const [user] = useAuthState(auth);
 
-	console.log(2);
+  console.log(user);
 
-	if (isUserLoggedIn) {
-		return <Route {...props} />;
-	}
-
-	return <Redirect to="/login"></Redirect>;
+  if (!user) {
+    return <Redirect to="/login"/>;
+  }
+  return <Route {...props} />;
 };
