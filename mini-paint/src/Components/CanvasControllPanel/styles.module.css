@@ -1,0 +1,21 @@
+.canvas_controll_container {
+  border: 1px solid black;
+}
+
+.canvas_controll_flex_container {
+  width: 300px;
+  height: 400px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.canvas_contoll_item {
+  width: 120px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  border: 1px solid black;
+  cursor: pointer;
+}
