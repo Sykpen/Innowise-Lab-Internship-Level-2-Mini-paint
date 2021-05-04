@@ -41,11 +41,7 @@ const LoginForm: FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const [isLoginSuccesessfull, setIsLoginSuccesessfull] = useState<boolean>(
-    false
-  );
-
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -58,7 +54,6 @@ const LoginForm: FC = () => {
     e.preventDefault();
     try {
       dispatch(loginUser(email, password));
-      setIsLoginSuccesessfull(true);
     } catch (error) {
       console.log(error);
     }
@@ -115,7 +110,6 @@ const LoginForm: FC = () => {
           </Grid>
         </form>
       </div>
-      {/* {isLoginSuccesessfull ? <Redirect to="/"></Redirect> : null} */}
     </Container>
   ) : loading ? (
     <p>Loading...</p>

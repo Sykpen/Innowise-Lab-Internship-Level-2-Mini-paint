@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CanvasControllPanel from "../CanvasControllPanel";
+import Button from "@material-ui/core/Button";
 
 import { RootState } from "../../index";
-
 import styles from "./styles.module.css";
-
-import Icoords from '../../Types/toolsTypes'
-
+import Icoords from "../../Types/toolsTypes";
+import { setCurrentUserData } from "../../actions/dataActions";
 
 const Canvas = () => {
+  const dispatch = useDispatch();
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   let canvasCtxRef = useRef<CanvasRenderingContext2D | null>(null);
 
@@ -22,6 +22,10 @@ const Canvas = () => {
   const currentChoosenTool = useSelector(
     (state: RootState) => state.tools.currentChosenTool
   );
+
+  const userId = useSelector(
+    (state: RootState) => state.authorization.userId
+  )
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -127,6 +131,17 @@ const Canvas = () => {
     }
   };
 
+  const saveCanvasImage = (e: React.MouseEvent) => {
+    const finalImage = canvasRef.current?.toDataURL();
+    if(finalImage) {
+     dispatch(setCurrentUserData(finalImage, userId))     
+    }
+  };
+
+  const clearCanvas = (e: React.MouseEvent) => {
+    canvasCtxRef.current?.clearRect(0, 0, 500, 500);
+  };
+
   return (
     <div className={styles.canvas_app_container}>
       <div className={styles.canvas_container}>
@@ -138,6 +153,14 @@ const Canvas = () => {
         ></canvas>
       </div>
       <CanvasControllPanel />
+      <div className={styles.buttons_container}>
+        <Button variant="contained" color="primary" onClick={saveCanvasImage}>
+          Save image
+        </Button>
+        <Button variant="contained" color="primary" onClick={clearCanvas}>
+          Clear canvas
+        </Button>
+      </div>
     </div>
   );
 };
