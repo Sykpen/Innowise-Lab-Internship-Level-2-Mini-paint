@@ -8,7 +8,7 @@ import Slider from "@material-ui/core/Slider";
 import { RootState } from "../../index";
 import styles from "./styles.module.css";
 import Icoords from "../../Types/toolsTypes";
-import { setCurrentUserData } from "../../actions/dataActions";
+import { setCurrentUserData, getCurrentUserData } from "../../actions/dataActions";
 
 const Canvas = () => {
   const dispatch = useDispatch();
@@ -163,6 +163,10 @@ const Canvas = () => {
     setCanvasCurrentColor(e.currentTarget.value);
   };
 
+  const getAllPaintings = (e: React.MouseEvent) => {
+      dispatch(getCurrentUserData(userId))
+  }
+
   return (
     <div className={styles.canvas_app_container}>
       <div className={styles.canvas_container}>
@@ -206,6 +210,9 @@ const Canvas = () => {
         </Button>
         <Button variant="contained" color="primary" onClick={clearCanvas}>
           Clear canvas
+        </Button>
+        <Button variant="contained" color="primary" onClick={getAllPaintings}>
+          Get all Paintings
         </Button>
       </div>
     </div>

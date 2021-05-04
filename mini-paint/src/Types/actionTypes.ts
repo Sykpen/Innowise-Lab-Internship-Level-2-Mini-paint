@@ -5,7 +5,10 @@ import {
 } from "./../actions/authorization";
 
 import { setNewTool } from "./../actions/tools";
-import { setCurrentUserData } from "./../actions/dataActions";
+import {
+  setCurrentUserData,
+  getCurrentUserData,
+} from "./../actions/dataActions";
 
 const actions = {
   registerNewUser,
@@ -13,6 +16,7 @@ const actions = {
   isUserAlreadyLoggedIn,
   setNewTool,
   setCurrentUserData,
+  getCurrentUserData,
 };
 
 type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
