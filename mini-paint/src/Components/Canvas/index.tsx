@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CanvasControllPanel from "../CanvasControllPanel";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Slider from "@material-ui/core/Slider";
 
 import { RootState } from "../../index";
 import styles from "./styles.module.css";
@@ -15,6 +17,14 @@ const Canvas = () => {
 
   const [isDrawing, setisDrawing] = useState<boolean>(false);
 
+  const [canvasStrokeWidth, setCanvasStrokeWidth] = useState<number | number[]>(
+    1
+  );
+
+  const [canvasCurrentcolor, setCanvasCurrentColor] = useState<string>(
+    "#000000"
+  );
+
   const [startPoint, setStartPoint] = useState<Icoords>({ x: 0, y: 0 });
 
   const [canvasImgData, setCanvasImgData] = useState<ImageData>();
@@ -23,9 +33,7 @@ const Canvas = () => {
     (state: RootState) => state.tools.currentChosenTool
   );
 
-  const userId = useSelector(
-    (state: RootState) => state.authorization.userId
-  )
+  const userId = useSelector((state: RootState) => state.authorization.userId);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -46,6 +54,11 @@ const Canvas = () => {
   const startDrawing = (e: React.MouseEvent) => {
     const nativeEvent = e.nativeEvent;
     const { offsetX, offsetY } = nativeEvent;
+
+    canvasCtxRef.current!.lineWidth = Number(canvasStrokeWidth);
+
+    canvasCtxRef.current!.strokeStyle = canvasCurrentcolor;
+    canvasCtxRef.current!.fillStyle = canvasCurrentcolor;
 
     canvasCtxRef.current?.beginPath();
     canvasCtxRef.current?.moveTo(offsetX, offsetY);
@@ -133,13 +146,21 @@ const Canvas = () => {
 
   const saveCanvasImage = (e: React.MouseEvent) => {
     const finalImage = canvasRef.current?.toDataURL();
-    if(finalImage) {
-     dispatch(setCurrentUserData(finalImage, userId))     
+    if (finalImage) {
+      dispatch(setCurrentUserData(finalImage, userId));
     }
   };
 
   const clearCanvas = (e: React.MouseEvent) => {
     canvasCtxRef.current?.clearRect(0, 0, 500, 500);
+  };
+
+  const sliderChangeHandler = (event: {}, value: number | number[]) => {
+    setCanvasStrokeWidth(value);
+  };
+
+  const colorhangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    setCanvasCurrentColor(e.currentTarget.value);
   };
 
   return (
@@ -153,6 +174,32 @@ const Canvas = () => {
         ></canvas>
       </div>
       <CanvasControllPanel />
+      <div className={styles.advanced_settings}>
+        <div>
+          <Typography id="discrete-slider" gutterBottom>
+            Stroke Width
+          </Typography>
+          <Slider
+            defaultValue={1}
+            aria-labelledby="discrete-slider"
+            valueLabelDisplay="auto"
+            step={1}
+            marks
+            min={1}
+            max={15}
+            onChange={sliderChangeHandler}
+          />
+        </div>
+        <div>
+          <input
+            type="color"
+            id="head"
+            name="head"
+            defaultValue="#00000"
+            onChange={colorhangeHandler}
+          ></input>
+        </div>
+      </div>
       <div className={styles.buttons_container}>
         <Button variant="contained" color="primary" onClick={saveCanvasImage}>
           Save image
