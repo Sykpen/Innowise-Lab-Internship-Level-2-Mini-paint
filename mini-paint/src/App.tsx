@@ -4,6 +4,7 @@ import { PrivateRoute } from "./Components/PrivateRoute";
 import MainAppComponent from "./Components/MainAppComponent";
 import RegisterForm from "./Components/RegisterForm";
 import LoginForm from "./Components/LoginForm";
+import AllPaintings from "./Components/AllPaintings";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           ></PrivateRoute>
           <Route path="/register" component={RegisterForm}></Route>
           <Route path="/login" component={LoginForm}></Route>
+          <Route path="/all" component={AllPaintings}></Route>
         </Switch>
       </Router>
     </>

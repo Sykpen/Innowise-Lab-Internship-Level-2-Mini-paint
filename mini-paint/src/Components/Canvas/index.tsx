@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CanvasControllPanel from "../CanvasControllPanel";
 import Button from "@material-ui/core/Button";
@@ -8,7 +8,11 @@ import Slider from "@material-ui/core/Slider";
 import { RootState } from "../../index";
 import styles from "./styles.module.css";
 import Icoords from "../../Types/toolsTypes";
-import { setCurrentUserData } from "../../actions/dataActions";
+import {
+  setCurrentUserData,
+  getCurrentUserData,
+} from "../../actions/dataActions";
+import { Link } from "react-router-dom";
 
 const Canvas = () => {
   const dispatch = useDispatch();
@@ -163,6 +167,10 @@ const Canvas = () => {
     setCanvasCurrentColor(e.currentTarget.value);
   };
 
+  const getAllPaintings = (e: React.MouseEvent) => {
+    dispatch(getCurrentUserData(userId));
+  };
+
   return (
     <div className={styles.canvas_app_container}>
       <div className={styles.canvas_container}>
@@ -206,6 +214,9 @@ const Canvas = () => {
         </Button>
         <Button variant="contained" color="primary" onClick={clearCanvas}>
           Clear canvas
+        </Button>
+        <Button variant="contained" color="primary">
+          <Link to="/all">Get all Paintings</Link>
         </Button>
       </div>
     </div>
