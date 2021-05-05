@@ -8,6 +8,7 @@ import { setNewTool } from "./../actions/tools";
 import {
   setCurrentUserData,
   getCurrentUserData,
+  storeUserData,
 } from "./../actions/dataActions";
 
 const actions = {
@@ -17,6 +18,7 @@ const actions = {
   setNewTool,
   setCurrentUserData,
   getCurrentUserData,
+  storeUserData,
 };
 
 type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
